@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class AStarPathFinder : MonoBehaviour
 {
-    float diagCost = 1.4f;
+    float diagCost = 1.2f;
 
     public Grid grid;
     public static AStarPathFinder instance;
@@ -11,11 +12,6 @@ public class AStarPathFinder : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        if(grid == null)
-        {
-            this.enabled = false;
-            return;
-        }
     }
 
     bool isDiagonal(Vector2Int gp1, Vector2Int gp2)
@@ -41,7 +37,7 @@ public class AStarPathFinder : MonoBehaviour
         }
         return diagCost * smaller + (larger - smaller);
     }
-    public List<Vector3> FindPath(Vector3 from, Vector3 to)
+    public Stack<Vector3> FindPath(Vector3 from, Vector3 to)
     {
         Node start = grid.GetNode(from);
         Node finish = grid.GetNode(to);
@@ -49,7 +45,7 @@ public class AStarPathFinder : MonoBehaviour
         BinHeap<Node> open = new BinHeap<Node>(100);
         List<Node> closed = new List<Node>();
 
-        List<Vector3> path = new List<Vector3>();
+        Stack<Vector3> path = new Stack<Vector3>();
 
         start.gCost = 0;
         start.hCost = calcHCost(start.gridPos, finish.gridPos);
@@ -86,13 +82,23 @@ public class AStarPathFinder : MonoBehaviour
             if (open.empty)
                 return path;
         }
-
         while(cur.parent != null)
         {
-            path.Add(cur.wPos);
+            path.Push(cur.wPos);
             cur = cur.parent;
         }
-        path.Reverse();
+
+        foreach(Node n in closed)
+        {
+            n.gCost = 0;
+            n.parent = null;
+        }
+        while(!open.empty)
+        {
+            Node temp = open.Pop();
+            temp.gCost = 0;
+            temp.parent = null;
+        }
         return path;
     }
 }

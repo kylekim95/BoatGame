@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public static Grid instance;
+
     Node[,] grid;
     float nodeSizeX, nodeSizeZ;
 
@@ -39,6 +41,7 @@ public class Grid : MonoBehaviour
     }
     private void Awake()
     {
+        instance = this;
         if (!initValidation())
         {
             this.enabled = false;
@@ -47,6 +50,23 @@ public class Grid : MonoBehaviour
         initGrid();
     }
 
+    void reCalcWalkable(Vector3 wPos)
+    {
+        for(int i = -2; i < 3; i++)
+        {
+            for (int j = -2; j < 3; j++)
+            {
+                Node temp = GetNode(wPos + new Vector3(i* nodeSizeX, 0, j*nodeSizeZ));
+                if (temp == null)
+                    continue;
+                Collider[] col = Physics.OverlapBox(temp.wPos, new Vector3(nodeSizeX / 2, 1, nodeSizeZ / 2), Quaternion.identity, unwalkable);
+                if (col.Length > 0)
+                    temp.walkable = false;
+                else
+                    temp.walkable = true;
+            }
+        }
+    }
     bool wPosValidation(Vector3 wPos)
     {
         if (wPos.x >= topLeft.x && wPos.x <= bottomRight.x &&
@@ -63,17 +83,27 @@ public class Grid : MonoBehaviour
         int z = Mathf.Clamp(Mathf.RoundToInt((wPos.z - bottomRight.z) / nodeSizeZ), 0, nNodeZ-1);
         return grid[x, z];
     }
-
+    public bool Walkable(Vector3 wPos)
+    {
+        Collider[] col = Physics.OverlapBox(wPos, new Vector3(nodeSizeX / 2, 1, nodeSizeZ / 2), Quaternion.identity, unwalkable);
+        if (col.Length > 0)
+        {
+            if (GetNode(wPos).walkable)
+                reCalcWalkable(wPos);
+            return false;
+        }
+        return true;
+    }
     public List<Node> GetAdjacentNodes(Node n)
     {
         Vector2Int nGridPos = n.gridPos;
         List<Node> adjNodes = new List<Node>();
         for(int i = -1; i < 2; i++)
         {
-            if (nGridPos.x + i < 0) continue;
+            if (nGridPos.x + i < 0 || nGridPos.x + i >= nNodeX) continue;
             for(int j = -1; j < 2; j++)
             {
-                if (nGridPos.y + j < 0) continue;
+                if (nGridPos.y + j < 0 || nGridPos.y + j >= nNodeZ) continue;
                 else
                 {
                     adjNodes.Add(grid[nGridPos.x + i, nGridPos.y + j]);

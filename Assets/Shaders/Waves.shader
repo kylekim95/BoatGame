@@ -13,7 +13,6 @@
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma addshadow
 
             #include "UnityCG.cginc"
 

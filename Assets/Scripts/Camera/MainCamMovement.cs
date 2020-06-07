@@ -37,18 +37,6 @@ public class MainCamMovement : MonoBehaviour
             cursorLocked = !cursorLocked;
         }
     }
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            newTarget = target.transform.position + new Vector3(0, 0, 3);
-        }
-        target.transform.position = Vector3.Lerp(
-                target.transform.position,
-                newTarget,
-                0.125f
-            );
-    }
     private void LateUpdate()
     {
         if (cursorLocked)
