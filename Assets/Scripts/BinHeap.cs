@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Data.SqlTypes;
 using UnityEngine;
 
-public class BinHeap<T> where T : IComparable
+public class BinHeap<T> where T : IComparable, IEquatable<T>
 {
     T[] heap;
     int nextInsLeaf = 0;

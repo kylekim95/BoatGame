@@ -1,80 +1,80 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyTest : MonoBehaviour
 {
-    public Transform target;
-
-    public float moveSpeed = .005f;
-
-    public enum AIState
+    public Pathfinder pathfinder;
+    public Vector3 targetPos;
+    public enum ai_state
     {
         Idle = 0,
         StartTracking,
-        Track,
+        Tracking,
+        Search,
+        Attack
     }
-    public AIState state;
+    public ai_state s;
 
-    void IdleSequence()
+    List<Vector3> path;
+    int curObj;
+    public float moveSpeed = 1f;
+
+    void Idle()
     {
 
     }
-
-    Stack<Vector3> path;
-    Vector3 curTarget;
-    float timer;
-    void TrackingSequence()
+    void StartTracking()
     {
-        if (timer > 1f)
+        path = pathfinder.FindPath(transform.position, targetPos);
+        curObj = 0;
+        s = ai_state.Tracking;
+    }
+    void Tracking()
+    {
+        if(curObj >= path.Count)
         {
-            if (!Grid.instance.Walkable(curTarget))
-            {
-                path = null;
-                state = AIState.StartTracking;
-                return;
-            }
-            transform.position = curTarget;
-            if (path.Count <= 0)
-            {
-                path = null;
-                state = AIState.Idle;
-                return;
-            }
-            curTarget = path.Pop();
-            timer = 0;
+            s = ai_state.Search;
+            return;
         }
+        Vector3 dir = path[curObj] - transform.position;
+        if (dir.magnitude < .05f)
+            curObj++;
         else
         {
-            timer += Time.deltaTime;
+            transform.position += dir.normalized * moveSpeed * Time.deltaTime;
         }
+    }
+    void Search()
+    {
+        s = ai_state.Idle;
+    }
+    void Attack()
+    {
+
     }
 
     private void Awake()
     {
-        state = AIState.Idle;
+        s = ai_state.Idle;
     }
     private void Update()
     {
-        switch (state)
+        switch (s)
         {
-            case AIState.Idle:
-                IdleSequence();
+            case ai_state.Idle:
+                Idle();
                 break;
-            case AIState.StartTracking:
-                path = AStarPathFinder.instance.FindPath(transform.position, target.position);
-                if (path.Count <= 0)
-                {
-                    path = null;
-                    state = AIState.Idle;
-                    return;
-                }
-                curTarget = path.Pop();
-                timer = 0;
-                state = AIState.Track;
+            case ai_state.StartTracking:
+                StartTracking();
                 break;
-            case AIState.Track:
-                TrackingSequence();
+            case ai_state.Tracking:
+                Tracking();
+                break;
+            case ai_state.Search:
+                Search();
+                break;
+            case ai_state.Attack:
+                Attack();
                 break;
         }
     }
