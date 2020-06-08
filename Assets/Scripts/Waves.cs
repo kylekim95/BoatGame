@@ -8,18 +8,19 @@ public class Waves : MonoBehaviour
     public Vector2 direction;
 
     public GameObject player;
+    public Vector3 prevPlayerPos;
 
     private void Awake()
     {
         mat = GetComponent<Renderer>().material;
+        prevPlayerPos = player.transform.position;
     }
-
     private void Update()
     {
         mat.SetVector("_WaveA", new Vector4(direction.x, direction.y, steepness, wavelength));
-        mat.SetVector("_WaveB", new Vector4(1, 2, steepness, wavelength));
         if (player != null)
         {
+            /*
             Vector2 d = direction.normalized;
             float k = 2f * 3.1415f / wavelength;
             float c = Mathf.Sqrt(9.8f / k);
@@ -27,6 +28,11 @@ public class Waves : MonoBehaviour
             float a = steepness / k;
 
             player.transform.position = new Vector3(player.transform.position.x, a * Mathf.Sin(f), player.transform.position.z);
+            */
+            if(prevPlayerPos != player.transform.position)
+            {
+
+            }
         }
     }
 }

@@ -36,8 +36,6 @@ public class MainCamMovement : MonoBehaviour
             Cursor.visible = cursorLocked;
             cursorLocked = !cursorLocked;
         }
-        if ((newTarget - target.position).magnitude > 1)
-            newTarget = Vector3.Lerp(newTarget, target.position, 0.05f);
     }
     private void LateUpdate()
     {
@@ -56,8 +54,8 @@ public class MainCamMovement : MonoBehaviour
                     radius * Mathf.Sin(curTheta) * Mathf.Sin(-curPhi)
                 );
 
-            transform.position = Vector3.Lerp(transform.position, newTarget + sphericalCoord, 0.125f);
-            transform.LookAt(newTarget);
+            transform.position = Vector3.Lerp(transform.position, target.position + sphericalCoord, 0.125f);
+            transform.LookAt(target.position);
         }
     }
 }

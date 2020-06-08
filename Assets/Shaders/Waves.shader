@@ -4,7 +4,6 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _WaveA("Wave A (dir, steepness, wavelength)", Vector) = (1,0,0.5,10)
-        _WaveB("Wave B (dir, steepness, wavelength)", Vector) = (1,2,0.5,10)
     }
     SubShader
     {
