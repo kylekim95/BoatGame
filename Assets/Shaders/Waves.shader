@@ -4,6 +4,10 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
         _WaveA("Wave A (dir, steepness, wavelength)", Vector) = (1,0,0.5,10)
+        _RipplePoint("RipplePoint", Vector) = (0,0,0,0)
+        _Frequency("Freq", Float) = 0
+        _Speed("Speed", Float) = 0
+        _Scale("Scale", Float) = 0
     }
     SubShader
     {
@@ -29,7 +33,10 @@
 
             sampler2D _MainTex;
             float4 _WaveA;
-            float4 _WaveB;
+            float4 _RipplePoint;
+            float _Speed;
+            float _Scale;
+            float _Frequency;
 
             float3 GerstnerWave(
                 float4 wave, float3 p, inout float3 tangent, inout float3 binormal
@@ -73,7 +80,7 @@
                 float3 p = gridPoint;
                 p += GerstnerWave(_WaveA, gridPoint, tangent, binormal);
                 float3 normal = normalize(cross(binormal, tangent));
-                
+
                 o.vertex = UnityObjectToClipPos(float4(p.x,p.y,p.z,1));
                 o.uv = v.uv;
                 o.normal = normal;

@@ -23,7 +23,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - _Frequency: 0.1
+    - _Scale: 0.05
+    - _Speed: 1
     m_Colors:
+    - _RipplePoint: {r: 0, g: 0, b: 0, a: 0}
     - _WaveA: {r: 1, g: 0, b: 0.5, a: 10}
     - _WaveB: {r: 1, g: 2, b: 0.5, a: 10}

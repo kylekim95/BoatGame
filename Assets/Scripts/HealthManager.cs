@@ -16,12 +16,14 @@ public class HealthManager : MonoBehaviour
     public void ChangeHealth(int val)
     {
         playerHealth = Mathf.Clamp(playerHealth + val, 0, maxHealth);
-        for(int i = 0; i < maxHealth; i++)
+        int i;
+        for(i = 0; i <playerHealth; i++)
         {
-            if (i <= playerHealth)
-                hearts[i].enabled = true;
-            else
-                hearts[i].enabled = false;
+            hearts[i].enabled = true;
+        }
+        for (; i < maxHealth; i++)
+        {
+            hearts[i].enabled = false;
         }
     }
 }

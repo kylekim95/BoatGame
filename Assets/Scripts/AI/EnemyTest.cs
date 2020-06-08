@@ -42,6 +42,7 @@ public class EnemyTest : MonoBehaviour
         else
         {
             transform.position += dir.normalized * moveSpeed * Time.deltaTime;
+            transform.LookAt(path[curObj]);
         }
     }
     void Search()

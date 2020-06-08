@@ -15,8 +15,14 @@ public class Detect : MonoBehaviour
         {
             if(hit.transform.gameObject.name == "Player")
             {
-                parent.targetPos = other.transform.position;
-                parent.s = EnemyTest.ai_state.StartTracking;
+                Vector3 v1 = (hit.point - transform.position).normalized;
+                Vector3 v2 = transform.forward;
+                float d = Vector3.Dot(v1, v2);
+                if (d >= Mathf.PI / 4 && d <= 3 * Mathf.PI / 4)
+                {
+                    parent.targetPos = other.transform.position;
+                    parent.s = EnemyTest.ai_state.StartTracking;
+                }
             }
         }
     }
