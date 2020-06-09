@@ -7,32 +7,40 @@ public class Waves : MonoBehaviour
     public float steepness = 1f;
     public Vector2 direction;
 
-    public GameObject player;
-    public Vector3 prevPlayerPos;
+    public Transform player;
+    Vector3 prevPlayerPos;
+    float maxDuration = 1;
+    bool ripple = false;
+    float timer = 0;
 
     private void Awake()
     {
         mat = GetComponent<Renderer>().material;
-        prevPlayerPos = player.transform.position;
+        prevPlayerPos = player.position - transform.forward;
     }
     private void Update()
     {
         mat.SetVector("_WaveA", new Vector4(direction.x, direction.y, steepness, wavelength));
-        if (player != null)
+        if (ripple)
         {
-            /*
-            Vector2 d = direction.normalized;
-            float k = 2f * 3.1415f / wavelength;
-            float c = Mathf.Sqrt(9.8f / k);
-            float f = k * (Vector3.Dot(d, new Vector3(player.transform.position.x, player.transform.position.z, 0)) - c * Time.realtimeSinceStartup);
-            float a = steepness / k;
-
-            player.transform.position = new Vector3(player.transform.position.x, a * Mathf.Sin(f), player.transform.position.z);
-            */
-            if(prevPlayerPos != player.transform.position)
+            timer += Time.deltaTime;
+            mat.SetFloat("_TimeSinceRippleStart1", timer);
+            if(timer > maxDuration)
             {
-
+                ripple = false;
             }
         }
+        else if (prevPlayerPos != player.position-transform.forward && !ripple)
+        {
+            StartRipple();
+        }
+        prevPlayerPos = player.position - transform.forward;
+    }
+    void StartRipple()
+    {
+        mat.SetVector("_RippleOrigin1", prevPlayerPos);
+        mat.SetFloat("_MaxDuration", maxDuration);
+        ripple = true;
+        timer = 0;
     }
 }
