@@ -16,7 +16,7 @@ public class Waves : MonoBehaviour
     private void Awake()
     {
         mat = GetComponent<Renderer>().material;
-        prevPlayerPos = player.position - transform.forward;
+        prevPlayerPos = player.position;
     }
     private void Update()
     {
@@ -30,11 +30,11 @@ public class Waves : MonoBehaviour
                 ripple = false;
             }
         }
-        else if (prevPlayerPos != player.position-transform.forward && !ripple)
+        else if (prevPlayerPos != player.position && !ripple)
         {
             StartRipple();
         }
-        prevPlayerPos = player.position - transform.forward;
+        prevPlayerPos = player.position;
     }
     void StartRipple()
     {

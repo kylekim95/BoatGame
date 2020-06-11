@@ -46,10 +46,6 @@
                 float f = k * (dot(d, p.xz) - c * _Time.y);
                 float a = steepness / k;
 
-                //p.x += d.x * (a * cos(f));
-                //p.y = a * sin(f);
-                //p.z += d.y * (a * cos(f));
-
                 tangent += float3(
                     -d.x * d.x * (steepness * sin(f)),
                     d.x * (steepness * cos(f)),
@@ -77,10 +73,12 @@
                 float x = abs(wPos.x - origin.x);
                 float z = abs(wPos.z - origin.z);
                 float r = 9 * timeSinceStart;
-                float a = clamp(maxDuration - timeSinceStart, 0, maxDuration) / maxDuration;
+                float a = clamp(maxDuration - timeSinceStart, 0, maxDuration) / (2 * maxDuration);
                 float val = a * sin(r - (x + z));
-                if (r >= x + z)
+                
+                if (r >= x + z) {
                     return -val;
+                }
                 else return 0;
             }
 
@@ -96,7 +94,9 @@
                 float3 normal = normalize(cross(binormal, tangent));
 
                 float3 wPos = mul(unity_ObjectToWorld, v.vertex);
-                p.y += ripple(_RippleOrigin1, wPos, _TimeSinceRippleStart1, _MaxDuration);
+                float val = ripple(_RippleOrigin1, wPos, _TimeSinceRippleStart1, _MaxDuration);
+                p.y += val;
+                normal.y += val;
 
                 o.vertex = UnityObjectToClipPos(float4(p.x,p.y,p.z,1));
                 o.uv = v.uv;
