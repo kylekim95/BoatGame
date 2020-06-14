@@ -4,16 +4,17 @@ public class MainCamMovement : MonoBehaviour
 {
     public Transform target;
     bool cursorLocked;
-    public float radius = 3f;
+    public float maxRadius = 3f;
+    float radius = 3f;
 
     public float curTheta = 0;
     public float curPhi = 0;
-    public float dir = 1;
 
-    public Vector3 newTarget;
+    Vector3 camVel;
 
     private void Awake()
     {
+        radius = maxRadius;
         Debug.Log("Press ESC to unlock cursor");
         if (target == null)
         {
@@ -44,8 +45,8 @@ public class MainCamMovement : MonoBehaviour
             Vector2 mouseDispDir = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")).normalized;
 
             curPhi += mouseDispDir.x * 0.05f;
-            curTheta += dir * mouseDispDir.y * 0.05f;
-            curTheta = Mathf.Clamp(curTheta, 0.001f, Mathf.PI - 0.001f);
+            curTheta += mouseDispDir.y * 0.05f;
+            curTheta = Mathf.Clamp(curTheta, 0.001f, Mathf.PI/3);
 
             //Spherical Coordinates
             Vector3 sphericalCoord = new Vector3(
@@ -53,8 +54,23 @@ public class MainCamMovement : MonoBehaviour
                     radius * Mathf.Cos(curTheta),
                     radius * Mathf.Sin(curTheta) * Mathf.Sin(-curPhi)
                 );
+            Vector3 finPos = Vector3.SmoothDamp(transform.position, target.position + sphericalCoord, ref camVel, 0.05f, 30f);
+            
+            Collider[] cols = Physics.OverlapSphere(finPos, 0.5f);
+            if (cols.Length <= 0)
+                radius = Mathf.Lerp(radius, maxRadius, 0.1f);
+            else
+            {
+                foreach (Collider col in cols)
+                {
+                    Vector3 dir = col.ClosestPoint(finPos) - finPos;
+                    float mag = 0.5f - dir.magnitude;
+                    finPos -= dir * mag;
+                    radius = (finPos - target.position).magnitude;
+                }
+            }
 
-            transform.position = Vector3.Lerp(transform.position, target.position + sphericalCoord, 0.125f);
+            transform.position = finPos;
             transform.LookAt(target.position);
         }
     }
