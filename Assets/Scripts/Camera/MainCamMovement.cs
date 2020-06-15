@@ -5,7 +5,7 @@ public class MainCamMovement : MonoBehaviour
     public Transform target;
     bool cursorLocked;
     public float maxRadius = 3f;
-    float radius = 3f;
+    public float radius = 3f;
 
     public float curTheta = 0;
     public float curPhi = 0;
@@ -56,7 +56,7 @@ public class MainCamMovement : MonoBehaviour
                 );
             Vector3 finPos = Vector3.SmoothDamp(transform.position, target.position + sphericalCoord, ref camVel, 0.05f, 30f);
             
-            Collider[] cols = Physics.OverlapSphere(finPos, 0.5f);
+            Collider[] cols = Physics.OverlapSphere(finPos, 1, LayerMask.GetMask("Obstacle"));
             if (cols.Length <= 0)
                 radius = Mathf.Lerp(radius, maxRadius, 0.1f);
             else
@@ -64,7 +64,7 @@ public class MainCamMovement : MonoBehaviour
                 foreach (Collider col in cols)
                 {
                     Vector3 dir = col.ClosestPoint(finPos) - finPos;
-                    float mag = 0.5f - dir.magnitude;
+                    float mag = 1 - dir.magnitude;
                     finPos -= dir * mag;
                     radius = (finPos - target.position).magnitude;
                 }

@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
     Grid grid;
     public float diagCost = 1.5f;
+    Mutex mut;
 
     private void Awake()
     {
         grid = GetComponent<Grid>();
+        mut = new Mutex();
     }
 
     float calc_hCost(Vector2Int from, Vector2 to)
@@ -21,9 +24,16 @@ public class Pathfinder : MonoBehaviour
     }
     public List<Vector3> FindPath(Vector3 from, Vector3 to)
     {
+        mut.WaitOne();
         Node start = grid.GetNode(from);
         Node finish = grid.GetNode(to);
         List<Vector3> path = new List<Vector3>(10);
+
+        if (!finish.walkable || finish == null)
+        {
+            return path;
+        }
+
         BinHeap<Node> open = new BinHeap<Node>(100);
         List<Node> closed = new List<Node>();
 
@@ -64,6 +74,7 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
+        mut.ReleaseMutex();
         return path;
     }
 }
