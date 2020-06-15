@@ -9,10 +9,14 @@
         _Ripple0Time("Ripple 0 time since ripple start", Float) = 0
         _Ripple1Time("Ripple 1 time since ripple start", Float) = 0
         _Ripple2Time("Ripple 2 time since ripple start", Float) = 0
+        _Ripple3Time("Ripple 3 time since ripple start", Float) = 0
+        _Ripple4Time("Ripple 4 time since ripple start", Float) = 0
 
         _Ripple0Origin("Ripple 0 origin", Vector) = (0,0,0,0)
         _Ripple1Origin("Ripple 1 origin", Vector) = (0,0,0,0)
         _Ripple2Origin("Ripple 2 origin", Vector) = (0,0,0,0)
+        _Ripple3Origin("Ripple 3 origin", Vector) = (0,0,0,0)
+        _Ripple4Origin("Ripple 4 origin", Vector) = (0,0,0,0)
 
         _RippleMaxDuration("Ripple max duration", Float) = 3
     }
@@ -67,14 +71,15 @@
                     d.y * (a * cos(f))
                     );
             }
+
             float ripple(float3 origin, float3 wPos, float timeSinceStart, float maxDuration) {
                 float x = abs(wPos.x - origin.x);
                 float z = abs(wPos.z - origin.z);
-                float r = 9 * timeSinceStart;
-                float a = clamp(maxDuration - timeSinceStart, 0, maxDuration) / (2 * maxDuration);
+                float r = 5 * clamp(timeSinceStart,0,maxDuration) / maxDuration;
+                float a = 0.9 * clamp(maxDuration - timeSinceStart, 0, maxDuration)/maxDuration;
                 float val = a * sin(r - (x + z));
 
-                if (r >= x + z) {
+                if (r*r >= x*x + z*z) {
                     return -val;
                 }
                 else return 0;
@@ -87,10 +92,14 @@
             float _Ripple0Time;
             float _Ripple1Time;
             float _Ripple2Time;
+            float _Ripple3Time;
+            float _Ripple4Time;
 
             float3 _Ripple0Origin;
             float3 _Ripple1Origin;
             float3 _Ripple2Origin;
+            float3 _Ripple3Origin;
+            float3 _Ripple4Origin;
 
             float _RippleMaxDuration;
 
@@ -115,6 +124,12 @@
                 p.y += val;
                 normal.y += val;
                 val = ripple(_Ripple2Origin, wPos, _Ripple2Time, _RippleMaxDuration);
+                p.y += val;
+                normal.y += val;
+                val = ripple(_Ripple3Origin, wPos, _Ripple3Time, _RippleMaxDuration);
+                p.y += val;
+                normal.y += val;
+                val = ripple(_Ripple4Origin, wPos, _Ripple4Time, _RippleMaxDuration);
                 p.y += val;
                 normal.y += val;
 
