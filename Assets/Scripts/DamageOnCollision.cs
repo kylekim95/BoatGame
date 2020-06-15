@@ -58,7 +58,7 @@ public class DamageOnCollision : MonoBehaviour
 
             Vector3 dir = (py.transform.position - transform.position).normalized;
 
-            py.AddForce(dir * 50, ForceMode.Impulse);
+            py.AddForce(dir, ForceMode.Impulse);
 
             player.Damage(1);
             player.StartCoroutine(player.BeImmortal(3));
