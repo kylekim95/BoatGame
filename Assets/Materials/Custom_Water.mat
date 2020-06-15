@@ -27,10 +27,14 @@ Material:
     - _Ripple0Time: 0
     - _Ripple1Time: 0
     - _Ripple2Time: 0
+    - _Ripple3Time: 0
+    - _Ripple4Time: 0
     - _RippleMaxDuration: 3
     m_Colors:
     - _Ripple0Origin: {r: 0, g: 0, b: 0, a: 0}
     - _Ripple1Origin: {r: 0, g: 0, b: 0, a: 0}
     - _Ripple2Origin: {r: 0, g: 0, b: 0, a: 0}
+    - _Ripple3Origin: {r: 0, g: 0, b: 0, a: 0}
+    - _Ripple4Origin: {r: 0, g: 0, b: 0, a: 0}
     - _Wave0: {r: 1, g: 1, b: 0, a: 1}
     - _Wave1: {r: 1, g: 1, b: 0, a: 1}

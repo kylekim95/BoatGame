@@ -100,7 +100,7 @@ public class EnemyAI : FiniteStateMachine
         Vector3 finalPos = transform.position + transform.forward * attackDistance;
         while((finalPos - transform.position).magnitude > 0.1f)
         {
-            transform.position = Vector3.Lerp(transform.position, finalPos, 0.5f);
+            transform.position = Vector3.Lerp(transform.position, finalPos, 0.125f);
             yield return null;
         }
         fov.trigOn = true;
