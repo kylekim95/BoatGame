@@ -12,11 +12,10 @@ public class MergeRT : MonoBehaviour
         public Shader merge;
     }
 
-    [SerializeField]
-    List<MergeSet> mergeSets;
+    public List<MergeSet> mergeSets;
     List<MergeSet> validMergeSet;
 
-    private void Awake()
+    private void Start()
     {
         validMergeSet = new List<MergeSet>();
 

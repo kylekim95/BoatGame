@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldOfView : MonoBehaviour
+public class FOV_2 : MonoBehaviour
 {
     float FOV_radius;
     public float FOV_width;
     public LayerMask raycast;
     public float attackRadius;
-    EnemyAI ai;
+    EnemyAI_Type2 ai;
     public bool trigOn = true;
 
     private void Awake()
@@ -17,8 +17,8 @@ public class FieldOfView : MonoBehaviour
     }
     private void Start()
     {
-        ai = GetComponentInParent<EnemyAI>();
-        if(ai == null)
+        ai = GetComponentInParent<EnemyAI_Type2>();
+        if (ai == null)
         {
             this.enabled = false;
             return;

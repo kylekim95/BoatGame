@@ -12,6 +12,7 @@ public class MainCamMovement : MonoBehaviour
     public float sensitivity = 0.03f;
 
     Vector3 camVel;
+    public LayerMask everything;
 
     private void Awake()
     {
@@ -57,7 +58,7 @@ public class MainCamMovement : MonoBehaviour
                 );
             Vector3 finPos = Vector3.SmoothDamp(transform.position, target.position + sphericalCoord, ref camVel, 0.05f, 30f);
             
-            Collider[] cols = Physics.OverlapSphere(finPos, 1, LayerMask.GetMask("Obstacle"));
+            Collider[] cols = Physics.OverlapSphere(finPos, 1, everything);
             if (cols.Length <= 0)
                 radius = Mathf.Lerp(radius, maxRadius, 0.1f);
             else
