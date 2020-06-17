@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     Rigidbody rigid;
     
     
-    public int moveSpeed = 2;
-    public float rotateSpeed = 0.4f;
-    public float speedLimit  = 10f;
+    public int moveSpeed = 20;
+    public float rotateSpeed = 2f;
+    public float speedLimit  = 5f;
 
 
     private float _turnVel;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private float _throttle;
     private float _steering;
 
-    public int hp = 3;
+    public int hp = 5;
 
     public static Player player;
 
@@ -149,18 +149,20 @@ public class Player : MonoBehaviour
         if (rigid.velocity.x < speedLimit &&  rigid.velocity.z < speedLimit)
         {
 
-            rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
+           // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime * mod1);
+
+            rigid.AddForce(moveSpeed * forward * mod1 , ForceMode.Acceleration); // add force forward based on input and horsepower
         }
 
         if (mod1 != 0)
         {
 
-            rigid.transform.Rotate(0f, 1f * mod2, 0f);
+            rigid.transform.Rotate(0f, rotateSpeed * mod2 * mod1, 0f);
         }
         
         //rigid.AddTorque( mod2 * (new Vector3(0,1,0) * rotateSpeed ) , ForceMode.Impulse);
 
-        rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
+        //rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
 
 
     }
