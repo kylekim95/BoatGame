@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
     {
         if (hits == (hits | 1 << other.gameObject.layer))
         {
-            Debug.Log("Hit!" + other.gameObject.name);
             Destroy(gameObject);
         }
     }

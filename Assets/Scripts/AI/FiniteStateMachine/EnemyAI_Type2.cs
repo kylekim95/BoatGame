@@ -101,8 +101,6 @@ public class EnemyAI_Type2 : FiniteStateMachine
 
         Vector3 dir = (attackTarget.transform.position - transform.position).normalized;
 
-        Debug.Log("Fire!");
-
         Instantiate(projectile, transform.position + transform.forward, transform.rotation);
 
         fov.trigOn = true;
