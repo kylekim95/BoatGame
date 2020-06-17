@@ -34,7 +34,7 @@ public class FieldOfView : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, dir, out hit, FOV_radius, raycast))
             {
-                if (hit.transform.gameObject.name == "Target")
+                if (hit.transform.gameObject.name == "Player")
                 {
                     float dot = Vector3.Dot(dir, transform.forward);
                     if (dot > Mathf.Cos(FOV_width * Mathf.Deg2Rad) || hit.distance < 1)

@@ -103,7 +103,7 @@ public class EnemyAI_Type2 : FiniteStateMachine
 
         Debug.Log("Fire!");
 
-        Instantiate(projectile, transform.position, transform.rotation);
+        Instantiate(projectile, transform.position + transform.forward, transform.rotation);
 
         fov.trigOn = true;
 

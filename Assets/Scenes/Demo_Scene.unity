@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 292013840}
   - component: {fileID: 292013839}
   - component: {fileID: 292013838}
+  - component: {fileID: 292013844}
   m_Layer: 0
   m_Name: Enemy_2
   m_TagString: Untagged
@@ -246,13 +247,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292013837}
   m_LocalRotation: {x: -0, y: 0.9999997, z: -0, w: -0.0008265784}
-  m_LocalPosition: {x: 0.21, y: 0, z: 10.8}
+  m_LocalPosition: {x: 0.2, y: 0, z: 8.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1478117792}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180.09499, z: 0}
+--- !u!54 &292013844
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292013837}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &521829439
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +303,7 @@ MonoBehaviour:
   FOV_width: 60
   raycast:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 768
   attackRadius: 2
   trigOn: 1
 --- !u!135 &521829441
@@ -423,7 +440,7 @@ GameObject:
   - component: {fileID: 970435860}
   - component: {fileID: 970435862}
   - component: {fileID: 970435863}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,10 +522,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numRipples: 10
   rippleMaxDur: 0.5
-  rippleDelay: 0.25
+  rippleDelay: 0.5
   dynObjects:
   - {fileID: 1642431984}
   - {fileID: 1251709882}
+  - {fileID: 2007444665}
+  - {fileID: 292013837}
 --- !u!114 &970435861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +591,7 @@ GameObject:
   - component: {fileID: 1164007395}
   - component: {fileID: 1164007394}
   - component: {fileID: 1164007393}
+  - component: {fileID: 1164007397}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -653,6 +673,22 @@ Transform:
   m_Father: {fileID: 1312118848}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -0.010000001, z: 0}
+--- !u!54 &1164007397
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164007392}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1251709882
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +703,7 @@ GameObject:
   - component: {fileID: 1251709884}
   - component: {fileID: 1251709883}
   - component: {fileID: 1251709888}
+  - component: {fileID: 1251709889}
   m_Layer: 0
   m_Name: Enemy_0
   m_TagString: Untagged
@@ -763,7 +800,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1251709882}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 5.1, y: 0, z: 6.63}
+  m_LocalPosition: {x: 7.95, y: 0, z: 11.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2106771024}
@@ -783,6 +820,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles: []
+--- !u!54 &1251709889
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251709882}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1312118847
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +882,7 @@ GameObject:
   - component: {fileID: 1397998939}
   - component: {fileID: 1397998938}
   - component: {fileID: 1397998937}
+  - component: {fileID: 1397998940}
   m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -910,6 +964,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1397998935}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1397998940
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397998935}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1478117791
 GameObject:
   m_ObjectHideFlags: 0
@@ -953,7 +1023,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1478117794
 MonoBehaviour:
@@ -970,7 +1040,7 @@ MonoBehaviour:
   FOV_width: 60
   raycast:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 768
   attackRadius: 5
   trigOn: 1
 --- !u!1 &1601455331
@@ -1123,8 +1193,9 @@ GameObject:
   - component: {fileID: 1642431985}
   - component: {fileID: 1642431989}
   - component: {fileID: 1642431990}
-  m_Layer: 0
-  m_Name: Target
+  - component: {fileID: 1642431991}
+  m_Layer: 9
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1198,7 +1269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1642431984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.75, y: 0, z: -2.64}
+  m_LocalPosition: {x: 0.08, y: 0, z: -1.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1236,6 +1307,19 @@ MonoBehaviour:
   rotateSpeed: 0.1
   hp: 3
   mortal: 0
+--- !u!114 &1642431991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642431984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06aba469ed11656468103b8f79618d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineColor: {r: 0.49803922, g: 0.49803922, b: 1, a: 1}
 --- !u!1 &1795768236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,6 +1332,7 @@ GameObject:
   - component: {fileID: 1795768239}
   - component: {fileID: 1795768238}
   - component: {fileID: 1795768237}
+  - component: {fileID: 1795768241}
   m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
@@ -1330,6 +1415,22 @@ Transform:
   m_Father: {fileID: 1312118848}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1795768241
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795768236}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2007444665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1445,7 @@ GameObject:
   - component: {fileID: 2007444668}
   - component: {fileID: 2007444667}
   - component: {fileID: 2007444666}
+  - component: {fileID: 2007444672}
   m_Layer: 0
   m_Name: Enemy_1
   m_TagString: Untagged
@@ -1460,6 +1562,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 269.951, z: 0}
+--- !u!54 &2007444672
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007444665}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2018177510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,6 +1590,7 @@ GameObject:
   - component: {fileID: 2018177513}
   - component: {fileID: 2018177512}
   - component: {fileID: 2018177511}
+  - component: {fileID: 2018177515}
   m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1553,6 +1672,22 @@ Transform:
   m_Father: {fileID: 1312118848}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -22.114, z: 0}
+--- !u!54 &2018177515
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018177510}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2106771022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,7 +1721,7 @@ MonoBehaviour:
   FOV_width: 60
   raycast:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 768
   attackRadius: 2
   trigOn: 1
 --- !u!4 &2106771024

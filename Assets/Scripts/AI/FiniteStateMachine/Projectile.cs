@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     float projSpeed = 5f;
+    public LayerMask hits;
 
     private void Update()
     {
@@ -13,7 +14,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hit!");
-        Destroy(gameObject);
+        if (hits == (hits | 1 << other.gameObject.layer))
+        {
+            Debug.Log("Hit!" + other.gameObject.name);
+            Destroy(gameObject);
+        }
     }
 }
