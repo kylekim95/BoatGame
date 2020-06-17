@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HP : MonoBehaviour
 {
     private Image Hp;
-    public UI ui;
+    
 
     public Vector2 HealthSize = new Vector2(64, 64);
     // Start is called before the first frame update
