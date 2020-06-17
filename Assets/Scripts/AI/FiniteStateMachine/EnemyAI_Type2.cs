@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using FSM;
 
-public class EnemyAI : FiniteStateMachine
+public class EnemyAI_Type2 : FiniteStateMachine
 {
-    public FieldOfView fov;
+    public FOV_2 fov;
+
+    public GameObject projectile;
 
     public Pathfinder pathfinder;
     public Vector3 targetPos;
@@ -97,12 +99,12 @@ public class EnemyAI : FiniteStateMachine
             yield return null;
         }
 
-        Vector3 finalPos = transform.position + transform.forward * attackDistance;
-        while((finalPos - transform.position).magnitude > 0.1f)
-        {
-            transform.position = Vector3.Lerp(transform.position, finalPos, 0.125f);
-            yield return null;
-        }
+        Vector3 dir = (attackTarget.transform.position - transform.position).normalized;
+
+        Debug.Log("Fire!");
+
+        Instantiate(projectile, transform.position, transform.rotation);
+
         fov.trigOn = true;
 
         StartCoroutine("CoolDownTimer", attackCoolDown);
@@ -110,6 +112,6 @@ public class EnemyAI : FiniteStateMachine
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
     }
 }
