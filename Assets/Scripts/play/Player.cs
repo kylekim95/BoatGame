@@ -5,11 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody rigid;
-    
-    
-    public int moveSpeed = 2;
-    public float rotateSpeed = 0.4f;
-    public float speedLimit  = 10f;
+
+
+    public int moveSpeed = 20;
+    public float rotateSpeed = 2f;
+    public float speedLimit = 5f;
 
 
     private float _turnVel;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     private float _throttle;
     private float _steering;
 
-    public int hp = 3;
+    public int hp = 5;
 
     public static Player player;
 
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        
+
         rigid = GetComponent<Rigidbody>();
 
         _controls = new InputControls();
@@ -45,31 +45,31 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        UI.instance.Health.ChangeHearth(hp); 
+        //UI.instance.Health.ChangeHearth(hp);
     }
 
     private void Update()
     {
-       /* if (Input.GetButtonDown("Jump") && (isJump >= 0))
-        {
-            isJump--;
-            rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
-        }
+        /* if (Input.GetButtonDown("Jump") && (isJump >= 0))
+         {
+             isJump--;
+             rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
+         }
 
-       
-        if (Input.GetKey(KeyCode.W) )
-        {
-            Accelerate();
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Turn(1f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            Turn(-1f);
-        }
-        */
+
+         if (Input.GetKey(KeyCode.W) )
+         {
+             Accelerate();
+         }
+         if (Input.GetKey(KeyCode.A))
+         {
+             Turn(1f);
+         }
+         if (Input.GetKey(KeyCode.D))
+         {
+             Turn(-1f);
+         }
+         */
 
     }
     void FixedUpdate()
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
     public void OnEnable()
     {
-        
+
         _controls.BoatControls.Enable();
     }
 
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         _controls.BoatControls.Disable();
     }
 
-   
+
 
     public void Accelerate(float modifier)
     {
@@ -106,22 +106,22 @@ public class Player : MonoBehaviour
 
         forward.Normalize();
 
-        rigid.AddForce(moveSpeed* forward*modifier, ForceMode.Acceleration); // add force forward based on input and horsepower
+        rigid.AddForce(moveSpeed * forward * modifier, ForceMode.Acceleration); // add force forward based on input and horsepower
 
-       // rigid.AddRelativeTorque(-Vector3.right * modifier, ForceMode.Acceleration);
+        // rigid.AddRelativeTorque(-Vector3.right * modifier, ForceMode.Acceleration);
 
     }
 
     public void Turn(float modifier)
     {
-        
+
         //rigid.AddTorque(  new Vector3(0,1,0) * modifier * 100  , ForceMode.VelocityChange);
 
         modifier = Mathf.Clamp(modifier, -1f, 1f); // clamp for reasonable values
-      
+
         rigid.AddRelativeTorque(new Vector3(0f, 5f, -5f * 0.5f) * modifier, ForceMode.Acceleration); // add torque based on input and torque amount
-        
-        
+
+
         _currentAngle = Mathf.SmoothDampAngle(_currentAngle,
             60f * -modifier,
             ref _turnVel,
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
             Time.fixedTime);
 
         rigid.transform.eulerAngles = new Vector3(0f, _currentAngle, 0f);
-       
+
 
     }
 
@@ -146,8 +146,10 @@ public class Player : MonoBehaviour
         forward.Normalize();
 
 
-        if (rigid.velocity.x < speedLimit &&  rigid.velocity.z < speedLimit)
+        if (rigid.velocity.x < speedLimit && rigid.velocity.z < speedLimit)
         {
+
+            // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime * mod1);
 
             rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
         }
@@ -155,12 +157,12 @@ public class Player : MonoBehaviour
         if (mod1 != 0)
         {
 
-            rigid.transform.Rotate(0f, 1f * mod2, 0f);
+            rigid.transform.Rotate(0f, rotateSpeed * mod2 * mod1, 0f);
         }
-        
+
         //rigid.AddTorque( mod2 * (new Vector3(0,1,0) * rotateSpeed ) , ForceMode.Impulse);
 
-        rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
+        //rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
 
 
     }
@@ -171,7 +173,7 @@ public class Player : MonoBehaviour
         mortal = false;
         yield return new WaitForSeconds(sec);
         mortal = true;
-        
+
     }
 
 
