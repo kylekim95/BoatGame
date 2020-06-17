@@ -13973,7 +13973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2033552189}
-  maxRadius: 5
+  maxRadius: 10
   radius: 3
   curTheta: 0
   curPhi: 0
