@@ -12,6 +12,7 @@ public class Player
     
     public int moveSpeed = 2;
     public float rotateSpeed = 0.4f;
+    public float speedLimit  = 10f;
 
 
     private float _turnVel;
@@ -45,6 +46,11 @@ public class Player
         mortal = true;
     }
 
+    private void Start()
+    {
+        UI.instance.Health.ChangeHearth(hp); 
+    }
+
     private void Update()
     {
        /* if (Input.GetButtonDown("Jump") && (isJump >= 0))
@@ -71,10 +77,11 @@ public class Player
     }
     void FixedUpdate()
     {
-      
+
 
         TurnAcc(_throttle, _steering);
-        
+        //Accelerate(_throttle);
+        //Turn(_steering);
 
     }
 
@@ -104,7 +111,7 @@ public class Player
 
         rigid.AddForce(moveSpeed* forward*modifier, ForceMode.Acceleration); // add force forward based on input and horsepower
 
-        rigid.AddRelativeTorque(-Vector3.right * modifier, ForceMode.Acceleration);
+       // rigid.AddRelativeTorque(-Vector3.right * modifier, ForceMode.Acceleration);
 
     }
 
@@ -114,6 +121,7 @@ public class Player
         //rigid.AddTorque(  new Vector3(0,1,0) * modifier * 100  , ForceMode.VelocityChange);
 
         modifier = Mathf.Clamp(modifier, -1f, 1f); // clamp for reasonable values
+      
         rigid.AddRelativeTorque(new Vector3(0f, 5f, -5f * 0.5f) * modifier, ForceMode.Acceleration); // add torque based on input and torque amount
         
         
@@ -123,8 +131,10 @@ public class Player
             0.5f,
             10f,
             Time.fixedTime);
-        rigid.transform.localEulerAngles = new Vector3(0f, _currentAngle, 0f);
-        
+
+        rigid.transform.eulerAngles = new Vector3(0f, _currentAngle, 0f);
+       
+
     }
 
     public void TurnAcc(float mod1, float mod2)
@@ -138,10 +148,22 @@ public class Player
 
         forward.Normalize();
 
-        rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
-        rigid.AddTorque( mod2 * (new Vector3(0,1,0) * rotateSpeed ) , ForceMode.VelocityChange);
 
-        //rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
+        if (rigid.velocity.x < speedLimit &&  rigid.velocity.z < speedLimit)
+        {
+
+            rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
+        }
+
+        if (mod1 != 0)
+        {
+
+            rigid.transform.Rotate(0f, 1f * mod2, 0f);
+        }
+        
+        //rigid.AddTorque( mod2 * (new Vector3(0,1,0) * rotateSpeed ) , ForceMode.Impulse);
+
+        rigid.AddRelativeTorque(-Vector3.right * mod1, ForceMode.Acceleration);
 
 
     }
@@ -160,6 +182,8 @@ public class Player
     {
 
         hp -= dmg;
+
+        UI.instance.Health.ChangeHearth(hp);
 
     }
 

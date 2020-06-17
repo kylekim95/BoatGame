@@ -6,8 +6,7 @@ public class DamageOnCollision : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public GameObject[] obstacles;
-
+    public float KnockBack = 10f;
 
     public void Awake()
     {
@@ -58,12 +57,12 @@ public class DamageOnCollision : MonoBehaviour
 
             Vector3 dir = (py.transform.position - transform.position).normalized;
 
-            py.AddForce(dir, ForceMode.Impulse);
+            py.AddForce(dir* KnockBack, ForceMode.Impulse);
 
             player.Damage(1);
             player.StartCoroutine(player.BeImmortal(3));
 
-            //player.mortal = true;
+           
         }
     }
 

@@ -9,6 +9,7 @@ public class MainCamMovement : MonoBehaviour
 
     public float curTheta = 0;
     public float curPhi = 0;
+    public float sensitivity = 0.03f;
 
     Vector3 camVel;
 
@@ -44,8 +45,8 @@ public class MainCamMovement : MonoBehaviour
         {
             Vector2 mouseDispDir = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")).normalized;
 
-            curPhi += mouseDispDir.x * 0.05f;
-            curTheta += mouseDispDir.y * 0.05f;
+            curPhi += mouseDispDir.x * sensitivity;
+            curTheta += mouseDispDir.y * sensitivity;
             curTheta = Mathf.Clamp(curTheta, 0.001f, Mathf.PI/3);
 
             //Spherical Coordinates
