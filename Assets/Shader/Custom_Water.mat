@@ -24,12 +24,16 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Ambient: 0.1
+    - _Diffuse: 0.45
+    - _Power: 10
     - _Ripple0Time: 0
     - _Ripple1Time: 0
     - _Ripple2Time: 0
     - _Ripple3Time: 0
     - _Ripple4Time: 0
     - _RippleMaxDuration: 3
+    - _Specular: 0.45
     m_Colors:
     - _Ripple0Origin: {r: 0, g: 0, b: 0, a: 0}
     - _Ripple1Origin: {r: 0, g: 0, b: 0, a: 0}

@@ -67,8 +67,13 @@ public class MainCamMovement : MonoBehaviour
                 {
                     Vector3 dir = col.ClosestPoint(finPos) - finPos;
                     float mag = 1 - dir.magnitude;
+                    //radius = (finPos - target.position).magnitude;
+                    if((finPos - target.position).magnitude < radius)
+                    {
+                        radius = (finPos - target.position).magnitude;
+                        dir = -Vector3.up;
+                    }
                     finPos -= dir * mag;
-                    radius = (finPos - target.position).magnitude;
                 }
             }
 

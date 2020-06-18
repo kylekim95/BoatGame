@@ -5,19 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody rigid;
-<<<<<<< HEAD
     
     
     public int moveSpeed = 20;
     public float rotateSpeed = 2f;
     public float speedLimit  = 5f;
-=======
-
-
-    public int moveSpeed = 20;
-    public float rotateSpeed = 2f;
-    public float speedLimit = 5f;
->>>>>>> e12485edfad3a90ef97519fc52bf26bbc7f6e764
 
 
     private float _turnVel;
@@ -53,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        //UI.instance.Health.ChangeHearth(hp);
+        UI.instance.Health.ChangeHearth(hp);
     }
 
     private void Update()
@@ -157,15 +149,12 @@ public class Player : MonoBehaviour
         if (rigid.velocity.x < speedLimit && rigid.velocity.z < speedLimit)
         {
 
-<<<<<<< HEAD
            // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime * mod1);
 
             rigid.AddForce(moveSpeed * forward * mod1 , ForceMode.Acceleration); // add force forward based on input and horsepower
-=======
             // transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime * mod1);
 
-            rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
->>>>>>> e12485edfad3a90ef97519fc52bf26bbc7f6e764
+            //rigid.AddForce(moveSpeed * forward * mod1, ForceMode.Acceleration); // add force forward based on input and horsepower
         }
 
         if (mod1 != 0)
